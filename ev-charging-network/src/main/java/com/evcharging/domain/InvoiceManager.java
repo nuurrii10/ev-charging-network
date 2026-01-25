@@ -8,6 +8,9 @@ public class InvoiceManager {
     private final List<Invoice> invoices = new ArrayList<>();
 
     public void createInvoice(String clientId, double amount) {
+        if (amount <= 0.0) {
+            return; // no invoice for zero/negative
+        }
         invoices.add(new Invoice(clientId, amount, "UNPAID"));
     }
 
@@ -26,6 +29,8 @@ public class InvoiceManager {
 
     public void markPaid(String clientId) {
         Invoice inv = findLatestForClient(clientId);
-        if (inv != null) inv.setStatus("PAID");
+        if (inv != null) {
+            inv.setStatus("PAID");
+        }
     }
 }

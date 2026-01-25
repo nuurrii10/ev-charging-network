@@ -12,6 +12,12 @@ public class ClientManager {
     }
 
     public void addClient(String id, int balance) {
+        if (balance < 0) {
+            return; // negative balance -> reject
+        }
+        if (findById(id) != null) {
+            return; // duplicate id -> ignore
+        }
         clients.add(new Client(id, balance));
     }
 
@@ -27,6 +33,9 @@ public class ClientManager {
     }
 
     public void updateBalance(String id, int newBalance) {
+        if (newBalance < 0) {
+            return; // reject
+        }
         Client client = findById(id);
         if (client != null) {
             client.setBalance(newBalance);

@@ -12,6 +12,9 @@ public class LocationManager {
     }
 
     public void addLocation(String name, String status) {
+        if (findByName(name) != null) {
+            return; // duplicate name -> ignore
+        }
         locations.add(new Location(name, status));
     }
 

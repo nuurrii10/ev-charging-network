@@ -2,7 +2,12 @@ package com.evcharging.domain;
 
 public class ChargingSessionManager {
 
-    private ChargingSession activeSession;
+    // statisch, damit andere Step-Klassen denselben Session-State sehen könnten
+    private static ChargingSession activeSession;
+
+    public void clear() {
+        activeSession = null;
+    }
 
     public ChargingSession startSession(String clientId, Charger charger, double lockedPricePerKwh) {
         activeSession = new ChargingSession(clientId, charger.getId(), lockedPricePerKwh);
@@ -14,7 +19,7 @@ public class ChargingSessionManager {
     }
 
     public void consume(int kwh) {
-        if (activeSession != null && activeSession.isActive()) {
+        if (activeSession != null && activeSession.isActive() && kwh >= 0) {
             activeSession.addKwh(kwh);
         }
     }

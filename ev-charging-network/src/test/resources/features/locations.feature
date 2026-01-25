@@ -13,3 +13,10 @@ Feature: Manage Locations
     Given a location "Highway Exit" with status "ACTIVE" exists
     When I change the status of location "Highway Exit" to "INACTIVE"
     Then the location "Highway Exit" should have status "INACTIVE"
+
+
+  Scenario: Cannot create duplicate location name
+    Given there are no locations in the system
+    When I create a new location with name "City Center" and status "ACTIVE"
+    And I create a new location with name "City Center" and status "ACTIVE"
+    Then the system should contain 1 location

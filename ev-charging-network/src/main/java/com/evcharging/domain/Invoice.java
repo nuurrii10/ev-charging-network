@@ -19,6 +19,11 @@ public class Invoice {
         return amount;
     }
 
+    public String getStatus() {
+        return status;
+    }
+
+    // Alias für alten Code
     public String getNetworkStatus() {
         return status;
     }

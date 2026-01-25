@@ -2,19 +2,16 @@ package com.evcharging.bdd.steps;
 
 import com.evcharging.domain.Location;
 import com.evcharging.domain.LocationManager;
-import io.cucumber.java.en.Given;
-import io.cucumber.java.en.When;
-import io.cucumber.java.en.Then;
+import io.cucumber.java.en.*;
 
 import static org.junit.Assert.*;
 
 public class LocationSteps {
 
-    private LocationManager locationManager;
+    private final LocationManager locationManager = new LocationManager();
 
     @Given("there are no locations in the system")
     public void there_are_no_locations_in_the_system() {
-        locationManager = new LocationManager();
         locationManager.clear();
         assertEquals(0, locationManager.count());
     }
@@ -38,8 +35,8 @@ public class LocationSteps {
 
     @Given("a location {string} with status {string} exists")
     public void a_location_with_status_exists(String name, String status) {
-        locationManager = new LocationManager();
         locationManager.addLocation(name, status);
+        assertNotNull(locationManager.findByName(name));
     }
 
     @When("I change the status of location {string} to {string}")

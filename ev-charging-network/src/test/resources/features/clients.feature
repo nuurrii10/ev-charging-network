@@ -13,3 +13,9 @@ Feature: Manage Clients
     Given a client "U2" with balance 20 exists
     When I update the balance of client "U2" to 80
     Then the client "U2" should have balance 80
+
+  Scenario: Cannot register client with negative balance
+    Given there are no clients in the system
+    When I add a client with id "U1" and balance -10
+    Then the system should contain 0 client
+

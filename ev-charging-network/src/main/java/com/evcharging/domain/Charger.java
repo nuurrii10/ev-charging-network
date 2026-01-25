@@ -5,7 +5,7 @@ public class Charger {
     private final String id;
     private final String type;          // AC / DC
     private final String locationName;  // City Center etc.
-    private String networkStatus;       // ONLINE / OFFLINE
+    private String networkStatus;       // ONLINE / OFFLINE / ACTIVE / INACTIVE
 
     public Charger(String id, String type, String locationName, String networkStatus) {
         this.id = id;
@@ -30,7 +30,17 @@ public class Charger {
         return networkStatus;
     }
 
+    // Alias, falls irgendwo getStatus() erwartet wird
+    public String getStatus() {
+        return networkStatus;
+    }
+
     public void setNetworkStatus(String networkStatus) {
         this.networkStatus = networkStatus;
+    }
+
+    // Alias
+    public void setStatus(String status) {
+        this.networkStatus = status;
     }
 }

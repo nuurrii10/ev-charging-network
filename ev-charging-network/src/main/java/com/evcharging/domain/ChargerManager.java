@@ -11,13 +11,16 @@ public class ChargerManager {
         chargers.clear();
     }
 
-    // Part1-Kompatibilität (alte Calls bleiben möglich)
+    // Part1: ohne Location -> wir setzen Location leer
     public void addCharger(String id, String type, String status) {
-        chargers.add(new Charger(id, type, "UNKNOWN", status));
+        addCharger(id, type, "", status);
     }
 
-    // Part2: Charger gehört zu Location + Network Status
+    // Part2: mit Location
     public void addCharger(String id, String type, String locationName, String networkStatus) {
+        if (findById(id) != null) {
+            return; // duplicate id -> ignore
+        }
         chargers.add(new Charger(id, type, locationName, networkStatus));
     }
 

@@ -2,19 +2,16 @@ package com.evcharging.bdd.steps;
 
 import com.evcharging.domain.Charger;
 import com.evcharging.domain.ChargerManager;
-import io.cucumber.java.en.Given;
-import io.cucumber.java.en.When;
-import io.cucumber.java.en.Then;
+import io.cucumber.java.en.*;
 
 import static org.junit.Assert.*;
 
 public class ChargerSteps {
 
-    private ChargerManager chargerManager;
+    private final ChargerManager chargerManager = new ChargerManager();
 
     @Given("there are no chargers in the system")
     public void there_are_no_chargers_in_the_system() {
-        chargerManager = new ChargerManager();
         chargerManager.clear();
         assertEquals(0, chargerManager.count());
     }
@@ -38,8 +35,8 @@ public class ChargerSteps {
 
     @Given("a charger {string} with type {string} and status {string} exists")
     public void a_charger_exists(String id, String type, String status) {
-        chargerManager = new ChargerManager();
         chargerManager.addCharger(id, type, status);
+        assertNotNull(chargerManager.findById(id));
     }
 
     @When("I change the status of charger {string} to {string}")

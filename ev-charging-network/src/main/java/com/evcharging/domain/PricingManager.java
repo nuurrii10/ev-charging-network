@@ -8,7 +8,9 @@ public class PricingManager {
     private final Map<String, Pricing> pricingByLocationName = new HashMap<>();
 
     public void setPrices(String locationName, double acPricePerKwh, double dcPricePerKwh) {
-        pricingByLocationName.put(locationName, new Pricing(acPricePerKwh, dcPricePerKwh));
+        double ac = Math.max(0.0, acPricePerKwh);
+        double dc = Math.max(0.0, dcPricePerKwh);
+        pricingByLocationName.put(locationName, new Pricing(ac, dc));
     }
 
     public Pricing getPricing(String locationName) {
@@ -17,9 +19,8 @@ public class PricingManager {
 
     public double getPricePerKwh(String locationName, String chargerType) {
         Pricing pricing = getPricing(locationName);
-        if (pricing == null) {
-            return 0.0;
-        }
+        if (pricing == null) return 0.0;
+
         if ("AC".equalsIgnoreCase(chargerType)) {
             return pricing.getAcPricePerKwh();
         }
@@ -29,7 +30,7 @@ public class PricingManager {
     public void updateAcPrice(String locationName, double newAcPrice) {
         Pricing pricing = pricingByLocationName.get(locationName);
         if (pricing != null) {
-            pricing.setAcPricePerKwh(newAcPrice);
+            pricing.setAcPricePerKwh(Math.max(0.0, newAcPrice));
         }
     }
 }

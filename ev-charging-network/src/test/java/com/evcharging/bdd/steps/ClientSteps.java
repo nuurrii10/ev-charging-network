@@ -2,20 +2,18 @@ package com.evcharging.bdd.steps;
 
 import com.evcharging.domain.Client;
 import com.evcharging.domain.ClientManager;
-import io.cucumber.java.en.Given;
-import io.cucumber.java.en.When;
-import io.cucumber.java.en.Then;
+import io.cucumber.java.en.*;
 
 import static org.junit.Assert.*;
 
 public class ClientSteps {
 
-    private ClientManager clientManager;
+    private final ClientManager clientManager = new ClientManager();
 
     @Given("there are no clients in the system")
     public void there_are_no_clients_in_the_system() {
-        clientManager = new ClientManager();
         clientManager.clear();
+        assertEquals(0, clientManager.count());
     }
 
     @When("I add a client with id {string} and balance {int}")
@@ -37,8 +35,8 @@ public class ClientSteps {
 
     @Given("a client {string} with balance {int} exists")
     public void a_client_with_balance_exists(String id, Integer balance) {
-        clientManager = new ClientManager();
         clientManager.addClient(id, balance);
+        assertNotNull(clientManager.findById(id));
     }
 
     @When("I update the balance of client {string} to {int}")
