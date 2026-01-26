@@ -20,7 +20,7 @@ public class NetworkStatusSteps {
 
     @When("I request the network status overview")
     public void i_request_the_network_status_overview() {
-        // MVP: kein extra Output nötig
+        
     }
 
     @Then("the overview should show charger {string} status {string}")
