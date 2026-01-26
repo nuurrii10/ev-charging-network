@@ -10,7 +10,7 @@ public class PricingSteps {
     private final LocationManager locationManager = new LocationManager();
     private final PricingManager pricingManager = new PricingManager();
 
-    // Nur für das Pricing-Feature (Locking)
+   
     private double lockedSessionPricePerKwh;
 
     @Given("a location {string} exists")
@@ -25,17 +25,15 @@ public class PricingSteps {
         pricingManager.setPrices(locationName, ac, dc);
     }
 
-    // ✅ Diese zwei Steps sind nur fürs Pricing.feature und daher anders benannt => keine Duplikate
+  
     @Given("a pricing client {string} exists with balance {int}")
     public void a_pricing_client_exists_with_balance(String clientId, Integer balance) {
-        // Pricing-Feature nutzt den Client nicht wirklich, aber der Step soll existieren.
         assertNotNull(clientId);
         assertNotNull(balance);
     }
 
     @Given("a pricing charger {string} of type {string} at location {string} is {string}")
     public void a_pricing_charger_of_type_at_location_is(String chargerId, String type, String locationName, String status) {
-        // Pricing-Feature nutzt den Charger nicht wirklich, aber der Step soll existieren.
         assertNotNull(chargerId);
         assertNotNull(type);
         assertNotNull(locationName);
